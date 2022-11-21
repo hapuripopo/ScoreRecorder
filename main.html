@@ -8,29 +8,51 @@
     <title>Document</title>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script>
+        //점수에 해당하는 성적을 반환하는 함수
+        function scorePerformance(score){
+            if(score >= 95){
+                return 'A+';
+            }else if(score >= 90){
+                return 'A0';
+            }else if(score >= 85){
+                return 'B+';
+            }else if(score >= 80){
+                return 'B0';
+            }else if(score >= 75){
+                return'C+';
+            }else if(score >= 70){
+                return'C0';
+            }else if(score >= 65){
+                return'D+';
+            }else if(score >= 60){
+                return'D0';
+            }else {
+                return'F';
+            }
+        };
         $(document).ready(function(){
             //추가 버튼 구현
             $("input[value=\"추가\"]").click(function(){
                 //테이블 학년 확인
-                let grade = $(this).attr('name');
+                let grade = $(this).parent().attr('id');
 
                 //row 추가
-                $("#" + grade).append("<tr><td><input type=\"checkbox\" name=\"check\"></td>\
-                    <td><select id=\"partion\" name=\"partion\">\
-                        <option value=\"1\">전공</option>\
-                        <option value=\"2\">교양</option>\</td>\
-                    <td><select id=\"essential\" name=\"partion\">\
-                        <option value=\"1\">필수</option>\
-                        <option value=\"2\">선택</option>\</td>\
-                    <td><input type=\"text\"></td>\
-                    <td><input type=\"text\"></td>\
-                    <td><input type=\"text\"></td>\
-                    <td><input type=\"text\"></td>\
-                    <td><input type=\"text\"></td>\
-                    <td><input type=\"text\"></td>\
-                    <td></td>\
-                    <td></td>\
-                    <td></td></tr>");
+                $("#" + grade + " .scores").append(`<tr><td><input type="checkbox" name="check"></td>
+                    <td><select class="partion" name="partion">
+                        <option value="M">전공</option>
+                        <option value="GE">교양</option></td>
+                    <td><select class="essential" name="partion">
+                        <option value="E">필수</option>
+                        <option value="O">선택</option></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td></tr>`);
             });
             
             //삭제 버튼 구현
@@ -41,40 +63,73 @@
             //저장 버튼 구현
             $("input[value=\"저장\"]").click(function(){
                 //테이블 학년 확인
-                let grade = $(this).attr('name');
+                let grade = $(this).parent().attr('id');
 
                 let sum_arr = [0, 0, 0, 0, 0];
-
+                let PNP_cnt = 0;
                 //합계 계산
-                $('#'+ grade + ' tr').each(function() {
+                $('#'+ grade + ' .scores tr').each(function() {
+                    let empty_cnt = 0;
                     let sum = 0;
                     //총점 계산, 출력
                     for (let i=5; i<9; i++){
                         sum += Number($(this).find('td:eq('+i+')').children().val());
+                        if($(this).find('td:eq('+i+')').children().val().trim()===''){
+                            empty_cnt += 1;
+                        }
                     }
                     $(this).find('td:eq(9)').text(sum);
 
-                    //성적 처리
+                    //총점 -> 성적 처리
+                    $(this).find('td:eq(11)').text(scorePerformance(sum));
+                    if(sum < 60){   //F는 빨강색으로 표시
+                        $(this).find('td:eq(11)').css('color', 'red');
+                    }else{
+                        $(this).find('td:eq(11)').css('color', '#000000');
+                    }
 
-                    
                     //합계 계산
                     for (let i=4; i<9; i++){
                         sum_arr[i-4] += Number($(this).find('td:eq('+ i +')').children().val());
                     }
+
+                    //P, NP
+                    if(empty_cnt >= 4){
+                        $(this).find('td:eq(9)').empty();
+                        $(this).find('td:eq(11)').empty();
+                        $(this).find('td:eq(11)').append(`<select class='PNP' name='PNP'>
+                        <option value='P'>P</option>
+                        <option value='NP'>NP</option>`);
+                        PNP_cnt += 1;
+                    }
                 });
 
-                // //합계 출력
-                // for(let i=4; )
+                //합계 출력
+                let sum = 0;
+                for(let i=2; i<7; i++){
+                    $("#" + grade + " .sum").find('td:eq('+i+')').text(sum_arr[i-2]);
+                    sum += sum_arr[i-2];
+                }
+
+                sub_cnt = $("#" + grade + " .scores tr").length - PNP_cnt;
+                $("#" + grade + " .sum").find('td:eq(7)').text(sum);
+                $("#" + grade + " .sum").find('td:eq(8)').text(Math.round(sum/sub_cnt));
+                $("#" + grade + " .sum").find('td:eq(9)').text(scorePerformance(sum/sub_cnt));
+                if(sum/sub_cnt < 60){   //F는 빨강색으로 표시
+                    $("#" + grade + " .sum").find('td:eq(9)').css('color', 'red');
+                }else{
+                    $("#" + grade + " .sum").find('td:eq(9)').css('color', '#000000');
+                }
             });
         });
     </script>
 </head>
 <body>
-<div class="first">
+<div id="first">
     1학년
-    <input type="button" value="추가" name="one">
-    <input type="button" value="삭제" name="one">
-    <input type="button" value="저장" name="one">
+    <input type="button" value="추가">
+    <input type="button" value="삭제">
+    <input type="button" value="저장">
     <table border="1">
         <thead>
             <tr>
@@ -92,11 +147,11 @@
                 <th>성적</th>
             </tr>
         </thead>
-        <tbody id="one">
+        <tbody class="scores">
         <!--과목 별 점수-->
         </tbody>
         <tfoot>
-            <tr>
+            <tr class="sum">
                 <td></td>
                 <td colspan="3">합계</td>
                 <td></td>
@@ -111,10 +166,10 @@
         </tfoot>
     </table>
 </div>
-<div class="second">
+<div id="second">
 
 </div>
-<div class="third">
+<div id="third">
 
 </div>
 </body>
