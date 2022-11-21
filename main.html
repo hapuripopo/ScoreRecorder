@@ -4,11 +4,112 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./main.css">
     <title>Document</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            //추가 버튼 구현
+            $("input[value=\"추가\"]").click(function(){
+                //테이블 학년 확인
+                let grade = $(this).attr('name');
+
+                //row 추가
+                $("#" + grade).append("<tr><td><input type=\"checkbox\" name=\"check\"></td>\
+                    <td><select id=\"partion\" name=\"partion\">\
+                        <option value=\"1\">전공</option>\
+                        <option value=\"2\">교양</option>\</td>\
+                    <td><select id=\"essential\" name=\"partion\">\
+                        <option value=\"1\">필수</option>\
+                        <option value=\"2\">선택</option>\</td>\
+                    <td><input type=\"text\"></td>\
+                    <td><input type=\"text\"></td>\
+                    <td><input type=\"text\"></td>\
+                    <td><input type=\"text\"></td>\
+                    <td><input type=\"text\"></td>\
+                    <td><input type=\"text\"></td>\
+                    <td></td>\
+                    <td></td>\
+                    <td></td></tr>");
+            });
+            
+            //삭제 버튼 구현
+            $("input[value=\"삭제\"]").click(function(){
+                $("[name=\"check\"]:checked").closest('tr').remove();
+            });
+
+            //저장 버튼 구현
+            $("input[value=\"저장\"]").click(function(){
+                //테이블 학년 확인
+                let grade = $(this).attr('name');
+
+                let sum_arr = [0, 0, 0, 0, 0];
+
+                //합계 계산
+                $('#'+ grade + ' tr').each(function() {
+                    let sum = 0;
+                    //총점 계산, 출력
+                    for (let i=5; i<9; i++){
+                        sum += Number($(this).find('td:eq('+i+')').children().val());
+                    }
+                    $(this).find('td:eq(9)').text(sum);
+
+                    //성적 처리
+
+                    
+                    //합계 계산
+                    for (let i=4; i<9; i++){
+                        sum_arr[i-4] += Number($(this).find('td:eq('+ i +')').children().val());
+                    }
+                });
+
+                // //합계 출력
+                // for(let i=4; )
+            });
+        });
+    </script>
 </head>
 <body>
 <div class="first">
-    <table></table>
+    1학년
+    <input type="button" value="추가" name="one">
+    <input type="button" value="삭제" name="one">
+    <input type="button" value="저장" name="one">
+    <table border="1">
+        <thead>
+            <tr>
+                <th>선택</th>
+                <th>이수</th>
+                <th>필수</th>
+                <th>과목명</th>
+                <th>학점</th>
+                <th>출석점수</th>
+                <th>과제점수</th>
+                <th>중간고사</th>
+                <th>기말고사</th>
+                <th>총점</th>
+                <th>평균</th>
+                <th>성적</th>
+            </tr>
+        </thead>
+        <tbody id="one">
+        <!--과목 별 점수-->
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td colspan="3">합계</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
 </div>
 <div class="second">
 
