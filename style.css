@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400&display=swap');
+*{
+    font-family: 'Noto Serif KR', serif;
+}
+
+table {
+    margin: 0 0 40px 0;
+    width: 100%;
+    table-layout: auto;
+    border-collapse: collapse;
+}
+
+thead {
+    font-weight: 900;
+    color: #ffffff;
+    background: #ea6153;
+}
+
+tfoot {
+    font-weight: 900;
+    color: #ffffff;
+    background: #ea6153;
+}
+
+/*
+table 너비 상세설정
+1 : 체크박스
+2~3 : 셀렉박스
+4 : 과목명
+*/
+th:nth-child(1) {
+    width: 20px;
+}
+
+th:nth-child(2),
+thead th:nth-child(3) {
+    width: 50px;
+}
+
+th:nth-child(3) {
+    width: 100px;
+}
+
+
+td,
+th {
+    padding: 6px 6px;
+    text-align: center;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #e9e9e9;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #f6f6f6;
+}
+
+
+input[type="text"] {
+    width: 50%;
+    display: inline-block;
+    text-align: center;
+}
+
+input[type="button"] {
+    width: auto;
+    height: 2em;
+    background-color: #ea6153;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 6px;
+    border: 0;
+    outline: 0;
+}
+
+input[name="sub_name"] {
+    width: 100%;
+    border-radius: 6px;
+    text-align: left;
+}
+
+.title {
+    min-width: 80%;
+    display: inline-block;
+}

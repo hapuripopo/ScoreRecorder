@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./main.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" type="text/css">
+    <title>202044088홍성아</title>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script>
         //점수에 해당하는 성적을 반환하는 함수
@@ -44,7 +44,7 @@
                     <td><select class="essential" name="partion">
                         <option value="E">필수</option>
                         <option value="O">선택</option></td>
-                    <td><input type="text"></td>
+                    <td><input type="text" name="sub_name"></td>
                     <td><input type="text"></td>
                     <td><input type="text"></td>
                     <td><input type="text"></td>
@@ -110,6 +110,7 @@
                     $("#" + grade + " .sum").find('td:eq('+i+')').text(sum_arr[i-2]);
                     sum += sum_arr[i-2];
                 }
+                sum -= sum_arr[0];
 
                 sub_cnt = $("#" + grade + " .scores tr").length - PNP_cnt;
                 $("#" + grade + " .sum").find('td:eq(7)').text(sum);
@@ -118,7 +119,7 @@
                 if(sum/sub_cnt < 60){   //F는 빨강색으로 표시
                     $("#" + grade + " .sum").find('td:eq(9)').css('color', 'red');
                 }else{
-                    $("#" + grade + " .sum").find('td:eq(9)').css('color', '#000000');
+                    $("#" + grade + " .sum").find('td:eq(9)').css('color', 'inherit');
                 }
             });
         });
@@ -126,14 +127,14 @@
 </head>
 <body>
 <div id="first">
-    1학년
+    <h2 class="title">1학년</h2>
     <input type="button" value="추가">
     <input type="button" value="삭제">
     <input type="button" value="저장">
-    <table border="1">
+    <table>
         <thead>
             <tr>
-                <th>선택</th>
+                <th></th>
                 <th>이수</th>
                 <th>필수</th>
                 <th>과목명</th>
@@ -167,10 +168,86 @@
     </table>
 </div>
 <div id="second">
-
+    <h2 class="title">2학년</h2>
+    <input type="button" value="추가">
+    <input type="button" value="삭제">
+    <input type="button" value="저장">
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>이수</th>
+                <th>필수</th>
+                <th>과목명</th>
+                <th>학점</th>
+                <th>출석점수</th>
+                <th>과제점수</th>
+                <th>중간고사</th>
+                <th>기말고사</th>
+                <th>총점</th>
+                <th>평균</th>
+                <th>성적</th>
+            </tr>
+        </thead>
+        <tbody class="scores">
+        <!--과목 별 점수-->
+        </tbody>
+        <tfoot>
+            <tr class="sum">
+                <td></td>
+                <td colspan="3">합계</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
 </div>
 <div id="third">
-
+    <h2 class="title">3학년</h2>
+    <input type="button" value="추가">
+    <input type="button" value="삭제">
+    <input type="button" value="저장">
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>이수</th>
+                <th>필수</th>
+                <th>과목명</th>
+                <th>학점</th>
+                <th>출석점수</th>
+                <th>과제점수</th>
+                <th>중간고사</th>
+                <th>기말고사</th>
+                <th>총점</th>
+                <th>평균</th>
+                <th>성적</th>
+            </tr>
+        </thead>
+        <tbody class="scores">
+        <!--과목 별 점수-->
+        </tbody>
+        <tfoot>
+            <tr class="sum">
+                <td></td>
+                <td colspan="3">합계</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
 </div>
 </body>
 </html>
