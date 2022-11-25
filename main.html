@@ -44,12 +44,12 @@
                     <td><select class="essential" name="partion">
                         <option value="E">필수</option>
                         <option value="O">선택</option></td>
-                    <td><input type="text" name="sub_name"></td>
                     <td><input type="text"></td>
-                    <td><input type="text"></td>
-                    <td><input type="text"></td>
-                    <td><input type="text"></td>
-                    <td><input type="text"></td>
+                    <td><input type="number" min="1" max="3"></td>
+                    <td><input type="number" min="0" max="20"></td>
+                    <td><input type="number" min="0" max="20"></td>
+                    <td><input type="number" min="0" max="30"></td>
+                    <td><input type="number" min="0" max="30"></td>
                     <td></td>
                     <td></td>
                     <td></td></tr>`);
@@ -121,6 +121,7 @@
                 }else{
                     $("#" + grade + " .sum").find('td:eq(9)').css('color', 'inherit');
                 }
+
             });
         });
     </script>

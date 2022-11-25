@@ -71,18 +71,18 @@ input[type="button"] {
     cursor: pointer;
 }
 
-input[type="text"] {
+input[type="number"] {
     width: 50%;
     display: inline-block;
     text-align: center;
     border: 1px solid #2a2a2a;
     border-radius: 15px;
-    padding-left: 5px;
     background-color: #ffffff;
 }
 
-input[name="sub_name"] {
-    width: 100%;
+input[name="text"] {
+    width: 10%;
+    display: inline-block;
     border-radius: 6px;
     text-align: left;
 }
